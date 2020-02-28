@@ -126,5 +126,38 @@ namespace Projeto_3TI
 
         }
 
+        private void bt_deletar_Click(object sender, EventArgs e)
+        {
+            string connectionString = @"server=localhost;userid=root;password=;database=projeto_3ti";
+
+            MySqlConnection connection = null;
+
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = connection;
+                cmd.CommandText = "DELETE produto WHERE id=@id";
+                cmd.Prepare();
+
+                cmd.Parameters.AddWithValue("@id", txtId.Text);
+             
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Produto Deletado!");
+
+                txtNome.Text = "";
+                txtNome.Focus();
+
+            }
+            finally
+            {
+                if (connection != null)
+                    connection.Close();
+            }
+
+        }
     }
 }
