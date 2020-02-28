@@ -80,6 +80,7 @@ namespace Projeto_3TI
         {
             var _grid = dataGridView1.CurrentRow;
 
+           txtId.Text = _grid.Cells["id"].Value.ToString();
            txtNome.Text = _grid.Cells["nome"].Value.ToString();
            txtPrecoCusto.Text = _grid.Cells["preco_custo"].Value.ToString();
            txtPrecoVenda.Text = _grid.Cells["preco_venda"].Value.ToString();
@@ -102,13 +103,16 @@ namespace Projeto_3TI
 
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = connection;
-                cmd.CommandText = "UPDATE produto SET nome=@Name WHERE id=9";
+                cmd.CommandText = "UPDATE produto SET nome=@Name, preco_custo=@preco_custo, preco_venda=@preco_venda WHERE id=@id";
                 cmd.Prepare();
 
+                cmd.Parameters.AddWithValue("@id", txtId.Text);
                 cmd.Parameters.AddWithValue("@Name", txtNome.Text);
-                
+                cmd.Parameters.AddWithValue("@preco_custo", txtPrecoCusto.Text);
+                cmd.Parameters.AddWithValue("@preco_venda", txtPrecoVenda.Text);
+
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Produto cadastrado!");
+                MessageBox.Show("Produto atualizado!");
 
                 txtNome.Text = "";
                 txtNome.Focus();
