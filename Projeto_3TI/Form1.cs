@@ -159,5 +159,10 @@ namespace Projeto_3TI
             }
 
         }
+
+        private void produtohasfornecedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           new Produto_has_fornecedor().Show();
+        }
     }
 }
